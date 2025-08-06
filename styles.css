@@ -49,7 +49,8 @@ hr{
 h1{
     font-variation-settings: 'wght' 700;
     font-size: 3rem;
-    color: #a8a8a8
+    color: #a8a8a8;
+   
 }
 
 h2{
@@ -199,7 +200,7 @@ section{
 
 .skillsLearned{
     margin-top: 10px;
-    color: #c88f2f;
+    color: #c8342f;
 }
 
 
@@ -235,7 +236,7 @@ section{
 
 .score{
     margin-top: 10px;
-    color: #c88f2f;
+    color: #c8342f;
 }
 .score span{
     margin-left: 15px;
@@ -254,7 +255,7 @@ section{
 
 .skillsknown{
     font-size: 1rem;
-    color:#c88f2f;
+    color:#c8342f;
 }
 
 .courseworks h1{
@@ -602,5 +603,4 @@ section{
     width: 108px;
     position: absolute;
 }
-
 }
