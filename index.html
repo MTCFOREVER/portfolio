@@ -1,128 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/78c8e40774.js" crossorigin="anonymous"></script>
-    <title>Tharun Chezhian</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tharun Chezhian M — Cybersecurity & Dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --accent: #00ff9d; --accent2: #ff3c6e; --accent3: #3c8aff;
+    --bg: #0a0e14; --surface: #111820; --border: rgba(0,255,157,0.15);
+    --text: #e8f4f0; --muted: #6a8a7c;
+    --mono: 'Share Tech Mono', monospace; --display: 'Syne', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; overflow-x: hidden; }
+  .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,157,0.008) 2px, rgba(0,255,157,0.008) 4px); pointer-events: none; z-index: 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; position: relative; z-index: 1; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; position: sticky; top: 0; background: var(--bg); z-index: 100; }
+  .nav-logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+  .blink { animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero { margin-bottom: 5rem; }
+  .hero-tag { font-size: 0.72rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 0.8rem; opacity: 0.85; }
+  .hero-tag::before { content: '> '; }
+  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.5rem, 6.5vw, 4.5rem); line-height: 1.0; color: var(--text); margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+  .hero h1 span { color: var(--accent); }
+  .hero-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.9; max-width: 540px; margin-bottom: 2.5rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { padding: 0.65rem 1.3rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.05em; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-primary { background: var(--accent); color: var(--bg); border: none; font-weight: bold; }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  .btn-outline:hover { background: rgba(0,255,157,0.07); transform: translateY(-2px); }
+
+  .status-bar { display: flex; gap: 2rem; margin-top: 3rem; padding: 1rem 1.2rem; border: 1px solid var(--border); background: var(--surface); flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stat-val { font-family: var(--display); font-weight: 700; font-size: 1.5rem; color: var(--accent); }
+  .stat-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+  .section-header h2 { font-family: var(--display); font-weight: 700; font-size: 1.35rem; color: var(--text); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-tag { font-size: 0.68rem; color: var(--accent); letter-spacing: 0.15em; }
+
+  section { margin-bottom: 5rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .skill-item { background: var(--surface); padding: 1.1rem 1rem; transition: background 0.2s; }
+  .skill-item:hover { background: #141e28; }
+  .skill-cat { font-size: 0.62rem; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .skill-name { font-size: 0.8rem; color: var(--text); line-height: 1.6; }
+
+  .project-card { border: 1px solid var(--border); background: var(--surface); padding: 1.5rem; margin-bottom: 1px; transition: all 0.2s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 0; background: var(--accent); transition: height 0.3s; }
+  .project-card:hover { background: #131c26; }
+  .project-card:hover::before { height: 100%; }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.7rem; gap: 1rem; }
+  .project-name { font-family: var(--display); font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .project-tag { font-size: 0.62rem; padding: 0.2rem 0.55rem; letter-spacing: 0.08em; white-space: nowrap; flex-shrink: 0; }
+  .tag-red { border: 1px solid rgba(255,60,110,0.4); color: var(--accent2); background: rgba(255,60,110,0.08); }
+  .tag-blue { border: 1px solid rgba(60,138,255,0.4); color: var(--accent3); background: rgba(60,138,255,0.08); }
+  .tag-green { border: 1px solid rgba(0,255,157,0.3); color: var(--accent); background: rgba(0,255,157,0.06); }
+  .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tech-pill { font-size: 0.62rem; padding: 0.2rem 0.5rem; border: 1px solid var(--border); color: var(--muted); }
+
+  .exp-item { border: 1px solid var(--border); background: var(--surface); padding: 1.4rem 1.5rem; margin-bottom: 1px; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem; }
+  .exp-role { font-family: var(--display); font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .exp-date { font-size: 0.68rem; color: var(--accent); letter-spacing: 0.08em; }
+  .exp-company { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li { font-size: 0.8rem; color: var(--muted); line-height: 1.8; padding-left: 1rem; position: relative; }
+  .exp-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
+
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .cert-card { background: var(--surface); padding: 1.2rem; transition: background 0.2s; }
+  .cert-card:hover { background: #141e28; }
+  .cert-issuer { font-size: 0.65rem; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.4rem; }
+  .cert-name { font-size: 0.88rem; color: var(--text); font-weight: bold; line-height: 1.4; }
+
+  .contact-box { border: 1px solid var(--border); background: var(--surface); padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .contact-text h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; color: var(--text); margin-bottom: 0.4rem; }
+  .contact-text p { font-size: 0.8rem; color: var(--muted); }
+  .contact-links { display: flex; flex-direction: column; gap: 0.55rem; }
+  .contact-link { font-size: 0.78rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link::before { content: '→'; color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 0; display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; }
+
+  @media (max-width: 600px) {
+    .nav-links { gap: 1rem; }
+    .status-bar { gap: 1rem; }
+    .contact-box { flex-direction: column; }
+  }
+</style>
 </head>
 <body>
-    <div class="page">
-        <div class="console">
-            <Section class="hero">
-                    <!-- <p>tharunchezhian0412@gmail.com</p> -->
-                    <h1>THARUN CHEZHIAN M <span class="rightArrow">></span></h1>
-                    <h2>A Cybersecurity Engineer</h2>
-                    <p>I am a cybersecurity enthusiast with hands-on experience using a wide range of industry-standard tools.<br>I thrive in environments that challenge me to learn continuously and stay ahead of evolving cybersecurity threats. </p>
-                    <ul class="links">
-                        <li><a href="https://www.linkedin.com/in/tharunchezhian" target="_blank"><i class="fa-brands fa-linkedin linkLogo"></i></a></li>
-                        <li><a href="https://www.github.com/MTCFOREVER" target="_blank"><i class="fa-brands fa-github linkLogo"></i></a></li>
-                    </ul>
-                    <hr>
-                </Section>
-    
-                <section class="experience">
-                    <h1>Experience</h1>
-                    <div class="jobholder">
-                        <h3 class="jobdate">jun 2025 - Jul 2025</h3>
-                        <h2 class="jobtitle">> Rheinbrücke IT Consulting - <span class="jobrole">Cybersecurity Intern</span></h2>
-                        <h2 class="jobtitlemobile">Rheinbrücke IT Consulting</h2>
-                        <h2 class="jobrolemobile">> Cybersecurity Intern</h2>
-                        <h3 class="jobAchievements">• Worked with Azure Virtual Machines and learned about effective cost optimization strategies and best practices. <br>• Contributed to the development of IDS using splunk and conducted in-depth windows event log analysis.</h3>
-                        <div class="skillsLearned">Azure | Docker | Powershell | Splunk</div>
-                    </div>
-                    <div class="jobholder">
-                        <h3 class="jobdate">jul 2024 - Aug 2024</h3>
-                        <h2 class="jobtitle">Nandha Infotech - <span class="jobrole">Web development Intern</span></h2>
-                        <h2 class="jobtitlemobile">Nandha Infotech</h2>
-                        <h2 class="jobrolemobile">> Web development Intern</h2>
-                        <h3 class="jobAchievements">• Designed and deployed a responsive web application with a focus on user experience and performance. <br>• Collaborated on a real-time web development project using GitHub for version control and team coordination.
-                        </h3>
-                         <div class="skillsLearned">HTML | CSS | JavaScript | Github</div>
-                    </div>
-                   
-                </section>
-    
-                <section class="projects">
-                    <h1>Projects</h1>
-                    
-                    <div class="projectholder">
-                        <h2 class="project" data-img="assets/ids-image.png" data-id="1">> Windows Intrusion System</h2>
-                        <h2 class="project"  data-img="assets/decipher-image.png" data-id="2">> Decipher</h2>
-                    </div>
-                    <div class="pterminal">
-                        <div class="miniProfile">
-                        <div class="miniWindow">
-                            <div class="windowTab">
-                                <i class="fa-solid fa-terminal white"></i>
-                                <h3>Projects</h3>
-                            </div>
-                        </div>
+<div class="scanline"></div>
+<div class="container">
 
-                        <div class="mainWindow">
-                            <div class="pcdmShowcase"></div>
-                            <h1 class="pdescription"></h1>
-                            <div class="cmd">
-                                <h1 class="prefix"></h1>
-                            </div>
-                        </div>
-                    </div>
-
-                </section>
-    
-                <section class="education">
-                    <h1>Education</h1>
-                    <div class="educationholder">
-                        <h3 class="jobdate">2022 - 2026</h3>
-                        <h2 class="organizationname">PSNA College of Engineering and Technology</h2>
-                        <h2 class="coursename">B.E. in Computer Science and Engineering</h2>
-                        <div class="score">CGPA: 7.16</div>
-                    </div>
-                    <div class="educationholder">
-                        <h3 class="jobdate">2022 - 2026</h3>
-                        <h2 class="organizationname">SMBM Matriculation Higher Secondary School</h2>
-                        <h2 class="coursename">HSC & SSLC</h2>
-                        <div class="score">HSC: 89.4% <span>SSLC:83.0%</span></div>
-                    </div>
-                </section>
-
-                
-                <section class="skills">
-                    <h1>Skills</h1>
-                    <h2 class="skill">> Languages: <span class="skillsknown">Java | Python | SQL | PS</span></h2>
-                    <h2 class="skill">> Tools: <span class="skillsknown">Splunk | Wireshark | Docker | Github | Linux</span> </h2>
-                    <h2 class="skill">> Frameworks: <span class="skillsknown">NIST | ISO | MITRE</span> </h2>
-                </section>
-                <section class="skillsmobile">
-                    <h1>Skills</h1>
-                    <div class="mobileSkillsContainer">
-                        <h2 class="skillTitle">Languages</h2>
-                        <div class="individualSkills">Java | Python | SQL | PS</div>
-                        <div class="spad"></div>
-                        <h2 class="skillTitle">Tools</h2>
-                        <div class="individualSkills">Splunk | Wireshark | Docker | Github | Linux</div>
-                        <div class="spad"></div>
-                        <h2 class="skillTitle">Frameworks</h2>
-                        <div class="individualSkills">NIST | ISO | MITRE</div>
-                    </div>
-                </section>
-
-                <!-- <section class="courseworks">
-                    <h1>Courseworks & Certifications</h1>
-                    <div class="ccholder">
-                        <h2 class="cc">> Cyber Security Professional - Google</h2>
-                        <h2 class="cc">> Cloud Security Fundamentals - Palo Alto</h2>
-                        <h2 class="cc">> Fundamentals of Operating Systems - Scaler</h2>
-                        <h2 class="cc">> SQL Certification - Oracle</h2>
-                    </div>
-                </section> -->
-
-            </div>
-  
+  <nav>
+    <div class="nav-logo">0xTharun<span class="blink">_</span></div>
+    <div class="nav-links">
+      <a href="#about">./about</a>
+      <a href="#projects">./projects</a>
+      <a href="#experience">./experience</a>
+      <a href="#contact">./contact</a>
     </div>
+  </nav>
 
-    <script src="script.js"></script>
+  <section class="hero" id="about">
+    <div class="hero-tag">cybersecurity · software developer · final year CSE</div>
+    <h1>Tharun<br><span>Chezhian M</span></h1>
+    <p class="hero-desc">
+      Final-year B.E. CSE student at PSNA College, specializing in Cyber Security. Hands-on with Splunk IDS, Azure cloud infrastructure, and full-stack development. Google-certified. Building secure systems before the adversary does.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:tharunchezhian0412@gmail.com">contact_me()</a>
+      <a class="btn btn-outline" href="https://github.com/MTCFOREVER" target="_blank">github.com/MTCFOREVER</a>
+    </div>
+    <div class="status-bar">
+      <div class="stat"><span class="stat-val">3</span><span class="stat-label">PROJECTS</span></div>
+      <div class="stat"><span class="stat-val">2</span><span class="stat-label">INTERNSHIPS</span></div>
+      <div class="stat"><span class="stat-val">4</span><span class="stat-label">CERTS</span></div>
+      <div class="stat"><span class="stat-val">7.19</span><span class="stat-label">CGPA</span></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-tag">01</span>
+      <h2>Skills & Tools</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-cat">LANGUAGES</div><div class="skill-name">Java · Python · SQL</div></div>
+      <div class="skill-item"><div class="skill-cat">FRAMEWORKS</div><div class="skill-name">NIST · ISO · MITRE ATT&CK</div></div>
+      <div class="skill-item"><div class="skill-cat">SECURITY TOOLS</div><div class="skill-name">Splunk · Wireshark · Docker</div></div>
+      <div class="skill-item"><div class="skill-cat">CLOUD</div><div class="skill-name">Azure VMs · Cloud Arch</div></div>
+      <div class="skill-item"><div class="skill-cat">WEB STACK</div><div class="skill-name">HTML · CSS · JavaScript · Flask</div></div>
+      <div class="skill-item"><div class="skill-cat">OS & DEVOPS</div><div class="skill-name">Linux · GitHub · MySQL</div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-tag">02</span>
+      <h2>Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-name">Windows Intrusion Detection System</span>
+        <span class="project-tag tag-red">DEFENSIVE SEC</span>
+      </div>
+      <p class="project-desc">Configured Windows event log forwarding and wrote SPL queries to detect intrusion patterns and anomalies in real time. Built automated alert pipelines and Splunk dashboards to visualize threat activity across the monitored environment.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Splunk</span><span class="tech-pill">Docker</span><span class="tech-pill">PowerShell</span><span class="tech-pill">Azure</span><span class="tech-pill">SPL Queries</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-name">PSNA Assistant — AI Campus Chatbot</span>
+        <span class="project-tag tag-blue">AI / NLP</span>
+      </div>
+      <p class="project-desc">Conversational AI assistant for PSNA College helping students and staff with academic queries, timetables, and campus resources. Built an NLP pipeline with a structured knowledge base for context-aware free-form responses.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Python</span><span class="tech-pill">NLP</span><span class="tech-pill">AI/ML</span><span class="tech-pill">REST API</span><span class="tech-pill">Flask</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-name">Decipher — Text-Based CYOA Game</span>
+        <span class="project-tag tag-green">FULLSTACK</span>
+      </div>
+      <p class="project-desc">Cross-platform Choose Your Own Adventure desktop game for Windows using JavaScript and the Tauri framework. Modular component architecture, state management for branching story logic, and clean desktop packaging.</p>
+      <div class="project-tech">
+        <span class="tech-pill">JavaScript</span><span class="tech-pill">Tauri.js</span><span class="tech-pill">HTML</span><span class="tech-pill">CSS</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-tag">03</span>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-role">Security Intern</span>
+        <span class="exp-date">JUN – JUL 2025</span>
+      </div>
+      <div class="exp-company">Rheinbrücke IT Consulting · Chennai</div>
+      <ul class="exp-bullets">
+        <li>Deployed and managed Azure Virtual Machines; researched cost optimization and cloud architecture best practices for enterprise workloads.</li>
+        <li>Contributed to Windows IDS development using Splunk; performed event log analysis, threat correlation, and security alert tuning.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-role">Web Development Intern</span>
+        <span class="exp-date">JUL – AUG 2024</span>
+      </div>
+      <div class="exp-company">Nandha Infotech · Coimbatore</div>
+      <ul class="exp-bullets">
+        <li>Designed and deployed a responsive web application focused on UX, accessibility, and cross-device performance.</li>
+        <li>Collaborated in an agile team using GitHub for version control, code reviews, and feature branch workflows.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="section-header">
+      <span class="section-tag">04</span>
+      <h2>Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-issuer">GOOGLE</div><div class="cert-name">Cyber Security Professional</div></div>
+      <div class="cert-card"><div class="cert-issuer">PALO ALTO NETWORKS</div><div class="cert-name">Cloud Security Fundamentals</div></div>
+      <div class="cert-card"><div class="cert-issuer">SCALER</div><div class="cert-name">Fundamentals of Operating Systems</div></div>
+      <div class="cert-card"><div class="cert-issuer">ORACLE</div><div class="cert-name">SQL Certification</div></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-tag">05</span>
+      <h2>Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-box">
+      <div class="contact-text">
+        <h3>Let's connect.</h3>
+        <p>Open to security roles, internships, and collaborative projects.</p>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:tharunchezhian0412@gmail.com">tharunchezhian0412@gmail.com</a>
+        <a class="contact-link" href="https://github.com/MTCFOREVER" target="_blank">github.com/MTCFOREVER</a>
+        <a class="contact-link" href="https://linkedin.com/in/tharunchezhian" target="_blank">linkedin.com/in/tharunchezhian</a>
+        <a class="contact-link" href="tel:+918148927254">+91 81489 27254</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 — Tharun Chezhian M</span>
+    <span>PSNA College of Engineering & Technology</span>
+  </footer>
+
+</div>
 </body>
 </html>
